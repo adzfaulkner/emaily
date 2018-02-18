@@ -6,3 +6,17 @@ services:
       - 5000:5000
     volumes:
       - ./:/app
+    links:
+      - emaily-mongo
+  emaily-mongo:
+    image: mongo
+    volumes:
+      - ./mongo_data:/data/db:rw
+  emaily-mongoclient:
+    image: mongoclient/mongoclient
+    ports:
+      - 5001:3000
+    links:
+      - emaily-mongo
+    environment:
+      - MONGO_URL=mongodb://127.0.0.1:27017
