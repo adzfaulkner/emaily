@@ -29,7 +29,7 @@ const send = async (mailer) => {
 module.exports = {
   sendSurvey: async (survey, content) => {
     let mailer = new helper.Mail();
-    mailer.from_email = new helper.Email('no-reply@email.com');
+    mailer.from_email = new helper.Email('no-reply@emaily.com');
     mailer.subject = survey.subject;
     mailer.addContent(new helper.Content('text/html', content));
     mailer.addTrackingSettings(createTrackingSettings());

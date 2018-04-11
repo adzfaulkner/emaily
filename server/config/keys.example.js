@@ -6,5 +6,6 @@ module.exports = {
   jwtExpires: moment().add(1, 'hour'),
   stripePublishableKey: null,
   stripeSecretKey: null,
-  sendGridKey: null
+  sendGridKey: null,
+  redirectDomain: null
 };

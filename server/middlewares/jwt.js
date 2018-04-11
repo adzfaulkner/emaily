@@ -4,7 +4,16 @@ const ejwt = require('express-jwt');
 module.exports = app => {
   app.use(
     ejwt({ secret: keys.jwtSecret }).unless({
-      path: ['/auth/google/callback', '/auth/google', '/api/logout']
+      path: new RegExp(
+        [
+          '/auth/google/callback',
+          '/auth/google',
+          '/api/logout',
+          '/api/survey/notification',
+          '/api/survey/thanks',
+          '\\/api\\/survey\\/[a-z0-9]{24,}\\/(yes|no)'
+        ].join('|')
+      )
     })
   );
 

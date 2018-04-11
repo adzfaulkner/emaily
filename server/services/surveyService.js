@@ -34,5 +34,26 @@ module.exports = {
     const response = await mailerService.sendSurvey(survey, surveyTemplate(survey));
     await survey.save();
     return userService.removeCreditsFromUser(user, 1);
+  },
+  recipientResponded: async (surveyId, email, choice) => {
+    return await Survey.updateOne({
+      _id: surveyId,
+      recipients: {
+        $elemMatch: {
+          email,
+          responded: false
+        }
+      }
+    }, {
+      $inc: { [choice]: 1 },
+      $set: { 'recipients.$.responded': true },
+      lastResponded: new Date()
+    }).exec();
+  },
+  getSurveys: async userId => {
+    return await Survey.find({ user: userId })
+      .select({
+        recipients: false
+      });
   }
 };
